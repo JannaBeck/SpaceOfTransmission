@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Space of Transmission – Dense Responsive Infrastructure</title>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: sans-serif;
+  }
+
+  .wrapper {
+    position: relative;
+    width: 900px;
+    height: 600px;
+  }
+
+  svg {
+    width: 900px;
+    height: 600px;
+  }
+
+  /* infrastructure */
+  .wall {
+    stroke: black;
+    stroke-width: 2;
+  }
+
+  .wall.dashed {
+    stroke-dasharray: 8 6;
+  }
+
+  /* nodes */
+  .node {
+    cursor: pointer;
+  }
+
+  .ring {
+    fill: none;
+    stroke: black;
+    stroke-width: 10;
+    pointer-events: stroke;
+
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      transform 0.6s ease,
+      stroke-dashoffset 0.4s ease;
+    transition-delay: 0.15s;
+  }
+
+  /* responsive infrastructure */
+  .axis {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.7s ease;
+    transition-delay: 0.35s; /* infrastructure reacts last */
+  }
+
+  /* interaction */
+  .node:hover .ring {
+    transform: rotate(var(--rot));
+    stroke-dashoffset: calc(var(--off) + 30);
+  }
+
+  /* transversal logic */
+  .node:hover .axis.vert {
+    transform: translateX(var(--shift));
+  }
+
+  .node:hover .axis.horiz {
+    transform: translateY(var(--shift));
+  }
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<svg viewBox="0 0 900 600">
+
+  <!-- OUTER FRAME -->
+
+  <line x1="80"  y1="60"  x2="820" y2="60"  class="wall"/>
+  <line x1="820" y1="60"  x2="820" y2="540" class="wall dashed"/>
+  <line x1="820" y1="540" x2="80"  y2="540" class="wall"/>
+  <line x1="80"  y1="540" x2="80"  y2="60"  class="wall dashed"/>
+
+  <!-- INNER GRID -->
+
+  <!-- verticals -->
+  <g class="node" style="--rot:28deg; --off:0; --shift:18px;">
+    <line x1="220" y1="60" x2="220" y2="300" class="wall axis vert"/>
+    <circle class="ring" cx="220" cy="60" r="26" stroke-dasharray="120 40"/>
+  </g>
+
+  <g class="node" style="--rot:-22deg; --off:40; --shift:-14px;">
+    <line x1="360" y1="60" x2="360" y2="420" class="wall dashed axis vert"/>
+    <circle class="ring" cx="360" cy="180" r="26" stroke-dasharray="130 30"/>
+  </g>
+
+  <g class="node" style="--rot:32deg; --off:80; --shift:22px;">
+    <line x1="520" y1="60" x2="520" y2="360" class="wall axis vert"/>
+    <circle class="ring" cx="520" cy="240" r="26" stroke-dasharray="110 50"/>
+  </g>
+
+  <g class="node" style="--rot:-18deg; --off:120; --shift:-10px;">
+    <line x1="680" y1="180" x2="680" y2="540" class="wall dashed axis vert"/>
+    <circle class="ring" cx="680" cy="180" r="26" stroke-dasharray="120 40"/>
+  </g>
+
+  <!-- horizontals -->
+  <g class="node" style="--rot:20deg; --off:60; --shift:14px;">
+    <line x1="80" y1="180" x2="520" y2="180" class="wall axis horiz"/>
+    <circle class="ring" cx="360" cy="180" r="26" stroke-dasharray="130 30"/>
+  </g>
+
+  <g class="node" style="--rot:-30deg; --off:100; --shift:-18px;">
+    <line x1="220" y1="300" x2="820" y2="300" class="wall dashed axis horiz"/>
+    <circle class="ring" cx="520" cy="300" r="26" stroke-dasharray="110 50"/>
+  </g>
+
+  <g class="node" style="--rot:24deg; --off:140; --shift:20px;">
+    <line x1="80" y1="420" x2="680" y2="420" class="wall axis horiz"/>
+    <circle class="ring" cx="360" cy="420" r="26" stroke-dasharray="120 40"/>
+  </g>
+
+</svg>
+
+</div>
+
+</body>
+</html>
